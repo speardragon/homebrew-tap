@@ -1,9 +1,9 @@
 cask "herdr-bot" do
   arch arm: "arm64", intel: "x64"
 
-  version "1.1.0"
-  sha256 arm:   "667ddfb781fe9d29f9643c39cb611229224939ff9f072ee44ecb630e76e122db",
-         intel: "9809d8e7cd13ead787ab6c1dceb535f17b6e6c92e77a96101ba60cce5a6ca41b"
+  version "1.2.0"
+  sha256 arm:   "d40ebaffb5a1644e2000397e57b1cb709d36049c5441f26bb56817d66676a74a",
+         intel: "931a9621c47b19246d77e62308ae2b778f4a13de6719d7fbcb94444ae1982d4d"
 
   url "https://github.com/speardragon/herdr-bot/releases/download/v#{version}/herdr-bot-#{version}-#{arch}.dmg"
   name "herdr-bot"
