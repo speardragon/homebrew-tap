@@ -1,0 +1,35 @@
+name: Bump casks
+
+# Checks for a new herdr-bot release every hour (and on demand) and updates the cask. Polling keeps
+# the herdr-bot repo free of any token for this one.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bump
+  cancel-in-progress: false
+
+jobs:
+  herdr-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Point the cask at the latest release
+        id: bump
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: echo "version=$(scripts/bump-herdr-bot.sh)" >> "$GITHUB_OUTPUT"
+
+      - name: Commit
+        if: steps.bump.outputs.version != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "herdr-bot ${{ steps.bump.outputs.version }}"
+          git push
